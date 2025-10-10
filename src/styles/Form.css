@@ -1,0 +1,98 @@
+/* === Form Container === */
+.form-container {
+  max-width: 400px;
+  margin: 50px auto; /* centers form horizontally */
+  padding: 2rem;
+  background-color: #f8f9fa; /* light background */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* === Headings === */
+.form-container h2 {
+  text-align: center; /* centers the heading */
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #004aad; /* matches app primary color */
+  font-weight: bold;
+}
+
+/* === Form Inputs === */
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+  border-color: #2575fc;
+  box-shadow: 0 0 5px rgba(37,117,252,0.5);
+  outline: none;
+}
+
+/* === Form Buttons (Login & Register) === */
+.form-btn {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 5px; /* slightly rounded corners */
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 0.8rem; /* space between multiple buttons */
+}
+
+.form-btn:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* === Back Button (smaller, aligned right) === */
+.form-btn-back {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.45rem 1rem; /* smaller padding */
+  font-size: 0.85rem; /* smaller text */
+  font-weight: bold;
+  width: auto; /* fit content */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+}
+
+.form-btn-back:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.12);
+}
+
+/* Container to align Back button to the right */
+.form-back-container {
+  display: flex;
+  justify-content: flex-end; /* aligns right */
+  margin-top: 5px;
+}
+
+/* === Responsive Design === */
+@media (max-width: 500px) {
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  .form-btn-back {
+    width: auto; /* remains auto for mobile */
+  }
+}

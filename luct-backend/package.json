@@ -1,0 +1,30 @@
+{
+  "name": "luct-backend",
+  "version": "1.0.0",
+  "description": "Backend for LUCT Reporting System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "vite build",
+    "dev": "nodemon server.js",
+    "build-frontend": "cd ../frontend && npm install && npm run build",
+    "serve-frontend": "npx serve -s ../frontend/dist -l 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "pg": "^8.16.3",
+    "serve": "^14.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "vite": "^5.4.0"
+  }
+}

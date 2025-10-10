@@ -1,0 +1,195 @@
+/* Container */
+.student-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.student-container h2 {
+  color: #004aad;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Overview Cards */
+.student-overview {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.overview-card {
+  background: #f9f9f9;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 200px;
+}
+
+.overview-card h3 {
+  margin-bottom: 0.8rem;
+  color: #2575fc;
+}
+
+.overview-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Action Buttons */
+.student-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* Logout Button */
+.student-back-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
+
+.student-back-btn {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.student-back-btn:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* Timetable & Rating Table - White Theme */
+.timetable {
+  margin: 2rem auto;
+  max-width: 700px;
+  background-color: #ffffff; /* white background */
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+.timetable h3 {
+  color: #004aad; /* blue header */
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.timetable-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; /* space between rows */
+}
+
+.timetable-table th {
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+.timetable-table td {
+  padding: 0.8rem 1rem;
+  text-align: center;
+  color: #004aad;
+  background-color: #f0f4ff; /* light blue cells */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  font-weight: 500;
+}
+
+/* Hover effect */
+.timetable-table tr:hover td {
+  background-color: #d0e4ff;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+/* Rating Input Styling */
+.rating-input {
+  width: 60px;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #2575fc;
+  text-align: center;
+  font-weight: bold;
+  background-color: #ffffff;
+  color: #004aad;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.rating-input:focus {
+  outline: none;
+  background-color: #f0f4ff;
+  box-shadow: 0 2px 8px rgba(37, 117, 252, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .student-overview {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .overview-card {
+    width: 80%;
+  }
+
+  .student-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .student-back-container {
+    justify-content: center;
+  }
+
+  .timetable {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .timetable-table th,
+  .timetable-table td {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+}

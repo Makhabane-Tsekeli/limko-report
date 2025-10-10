@@ -1,0 +1,214 @@
+/* === Container === */
+.leader-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.leader-container h2 {
+  color: #004aad;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* === Overview === */
+.leader-overview {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.overview-card {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 200px;
+}
+
+.overview-card h3 {
+  margin-bottom: 0.8rem;
+  color: #2575fc;
+}
+
+.overview-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* === Actions Buttons === */
+.leader-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.action-btn {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* === Reports Headings === */
+.reports-heading {
+  text-align: center;
+  color: navy;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 1.5rem 0 0.3rem 0; /* reduced space below heading */
+}
+
+/* === Reports List === */
+.reports-list {
+  margin: 0 auto 2rem auto;
+  max-width: 800px;
+  text-align: left;
+}
+
+.report-card {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* === Report Row Styling === */
+.report-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.report-label {
+  font-weight: bold;
+  color: #004aad;
+  margin-right: 0.5rem;
+}
+
+.report-value {
+  color: #333;
+  flex: 1;
+  text-align: right;
+}
+
+/* === Timetable Styling (Same as PrincipalLecturer) === */
+.timetable-container {
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.timetable-container h3 {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #004aad;
+  margin-bottom: 1.5rem;
+}
+
+.timetable-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.timetable-table th,
+.timetable-table td {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.timetable-table th {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: #fff;
+  font-weight: bold;
+}
+
+.timetable-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.timetable-table tr:hover {
+  background-color: #f1f7ff;
+}
+
+.timetable-table td {
+  color: #333;
+}
+
+/* === Logout Button === */
+.leader-back-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
+
+.leader-back-btn {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.leader-back-btn:hover {
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .leader-overview {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .overview-card {
+    width: 80%;
+  }
+
+  .leader-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leader-back-container {
+    justify-content: center;
+  }
+
+  .timetable-container {
+    padding: 1rem;
+  }
+}
