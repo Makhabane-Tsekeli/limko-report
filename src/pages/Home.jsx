@@ -17,7 +17,13 @@ function Home() {
 
   const fetchDashboardData = async () => {
     try {
+
+
+
+      // ✅ Add this line at the top of your component or a config file
+      const API_URL = "https://limko-report-1.onrender.com";
       const response = await fetch('http://localhost:5000/api/dashboard-stats');
+      
       if (response.ok) {
         const data = await response.json();
         setOverviewData({

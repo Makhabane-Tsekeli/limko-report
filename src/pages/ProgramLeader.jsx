@@ -224,6 +224,10 @@ function ProgramLeader() {
 
     const course = courses[index];
     try {
+
+      // ✅ Add this line at the top of your component or a config file
+      const API_URL = "https://limko-report-1.onrender.com";
+
       if (course.id) {
         const response = await fetch(`http://localhost:5000/api/courses/${course.id}`, { method: 'DELETE' });
         if (!response.ok) throw new Error("Failed to delete course from server");

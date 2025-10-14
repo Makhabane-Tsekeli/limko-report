@@ -30,6 +30,11 @@ const LecturerReporting = () => {
     e.preventDefault();
 
     try {
+
+      // ✅ Add this line at the top of your component or a config file
+      const API_URL = "https://limko-report-1.onrender.com";
+
+
       const userId = localStorage.getItem('userId');
 
       const response = await fetch('http://localhost:5000/api/lecturer-reports', {
