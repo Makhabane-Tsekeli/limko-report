@@ -23,6 +23,9 @@ function ProgramLeader() {
 
   const [averageRating, setAverageRating] = useState(0);
 
+  // ✅ Render backend URL
+  const API_URL = "https://limko-report-1.onrender.com";
+
   useEffect(() => {
     loadLecturerReportsFromDB();
     loadCoursesFromDB();
@@ -33,7 +36,7 @@ function ProgramLeader() {
 
   const loadLecturerReportsFromDB = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/lecturer-reports');
+      const response = await fetch(`${API_URL}/api/lecturer-reports`);
       if (response.ok) {
         const data = await response.json();
         setLecturerReports(data);
@@ -48,7 +51,7 @@ function ProgramLeader() {
 
   const loadCoursesFromDB = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/courses');
+      const response = await fetch(`${API_URL}/api/courses`);
       if (response.ok) {
         const data = await response.json();
         setCourses(data);
@@ -63,7 +66,7 @@ function ProgramLeader() {
 
   const loadRatingsFromDB = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/ratings');
+      const response = await fetch(`${API_URL}/api/ratings`);
       if (response.ok) {
         const data = await response.json();
         const values = data.filter(r => r.rating).map(r => r.rating);
@@ -105,7 +108,7 @@ function ProgramLeader() {
     const role = localStorage.getItem('role');
 
     try {
-      await fetch('http://localhost:5000/api/logout', {
+      await fetch(`${API_URL}/api/logout`, { // updated
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, role }),
@@ -127,7 +130,7 @@ function ProgramLeader() {
 
     try {
       if (report.id) {
-        const response = await fetch(`http://localhost:5000/api/lecturer-reports/${report.id}`, { method: 'DELETE' });
+        const response = await fetch(`${API_URL}/api/lecturer-reports/${report.id}`, { method: 'DELETE' }); // updated
         if (!response.ok) throw new Error("Failed to delete from server");
       }
       const updatedReports = lecturerReports.filter((_, i) => i !== index);
@@ -147,7 +150,7 @@ function ProgramLeader() {
 
     try {
       if (report.id) {
-        const response = await fetch(`http://localhost:5000/api/program-reports/${report.id}`, { method: 'DELETE' });
+        const response = await fetch(`${API_URL}/api/program-reports/${report.id}`, { method: 'DELETE' }); // updated
         if (!response.ok) throw new Error("Failed to delete from server");
       }
       const updatedReports = programReports.filter((_, i) => i !== index);
@@ -168,7 +171,6 @@ function ProgramLeader() {
   };
 
   const handleAddCourse = async () => {
-    // <-- Updated: Make time and venue required
     if (
       !courseData.courseName ||
       !courseData.lecturerName ||
@@ -183,7 +185,7 @@ function ProgramLeader() {
 
     try {
       const userId = localStorage.getItem('userId');
-      const response = await fetch('http://localhost:5000/api/courses', {
+      const response = await fetch(`${API_URL}/api/courses`, { // updated
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...courseData, courseCode: `CODE${Date.now()}`, createdBy: userId }),
@@ -224,12 +226,8 @@ function ProgramLeader() {
 
     const course = courses[index];
     try {
-
-      // ✅ Add this line at the top of your component or a config file
-      const API_URL = "https://limko-report-1.onrender.com";
-
       if (course.id) {
-        const response = await fetch(`http://localhost:5000/api/courses/${course.id}`, { method: 'DELETE' });
+        const response = await fetch(`${API_URL}/api/courses/${course.id}`, { method: 'DELETE' }); // updated
         if (!response.ok) throw new Error("Failed to delete course from server");
       }
       const updatedCourses = courses.filter((_, i) => i !== index);
