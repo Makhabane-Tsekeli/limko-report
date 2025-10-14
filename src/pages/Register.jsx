@@ -23,6 +23,10 @@ function Register() {
     e.preventDefault();
     
     try {
+
+      // ✅ use your Render backend URL instead of localhost
+      const API_URL = "https://limko-report-1.onrender.com";
+
       const response = await fetch('http://localhost:5000/api/register', {
         method: 'POST',
         headers: {

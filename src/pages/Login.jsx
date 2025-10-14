@@ -17,6 +17,11 @@ function Login() {
     }
 
     try {
+
+      // ✅ use your Render backend URL instead of localhost
+      const API_URL = "https://limko-report-1.onrender.com";
+
+
       // Database authentication
       const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
