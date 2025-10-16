@@ -7,22 +7,35 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware
+// Middleware - UPDATED CORS
 app.use(cors({
-  origin: ["https://limko-report-vp3g.vercel.app"], // Your deployed frontend URL
+  origin: [
+    "https://limko-report.vercel.app", // Your actual frontend URL
+    "https://limko-report-1.onrender.com", 
+    "http://localhost:5173",
+    "http://localhost:3000"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 app.use(express.json());
 
-// PostgreSQL connection
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-});
+// ✅ UPDATED: PostgreSQL connection for Production (Supabase)
+const poolConfig = process.env.DATABASE_URL 
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false } // Required for Supabase
+    }
+  : {
+      // Fallback for local development
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+    };
+
+const pool = new Pool(poolConfig);
 
 // Test database connection
 pool.on('connect', () => console.log('Connected to PostgreSQL database'));
@@ -31,6 +44,109 @@ pool.on('error', (err) => console.error('Database connection error:', err));
 // Test route
 app.get('/', (req, res) => {
   res.json({ message: 'LUCT Reporting System Backend is running!' });
+});
+
+// ✅ ADD THIS: Database setup endpoint for Supabase
+app.post('/api/setup-database', async (req, res) => {
+  try {
+    console.log('Setting up database tables...');
+    
+    // Create users table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        role VARCHAR(20) NOT NULL CHECK (role IN ('Student', 'Lecturer', 'PrincipalLecture', 'ProgramLeader')),
+        full_name VARCHAR(100),
+        phone_number VARCHAR(20),
+        department VARCHAR(100),
+        is_logged_in BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Create lecturer_reports table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS lecturer_reports (
+        id SERIAL PRIMARY KEY,
+        faculty_name VARCHAR(100) NOT NULL,
+        class_name VARCHAR(50) NOT NULL,
+        week_of_reporting VARCHAR(20) NOT NULL,
+        date_of_lecture DATE NOT NULL,
+        course_name VARCHAR(100) NOT NULL,
+        course_code VARCHAR(20) NOT NULL,
+        lecturer_name VARCHAR(100) NOT NULL,
+        actual_students_present INTEGER NOT NULL,
+        total_registered_students INTEGER NOT NULL,
+        venue VARCHAR(100) NOT NULL,
+        scheduled_time TIME NOT NULL,
+        topic_taught TEXT NOT NULL,
+        learning_outcomes TEXT NOT NULL,
+        recommendations TEXT,
+        submitted_by INTEGER REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Create courses table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS courses (
+        id SERIAL PRIMARY KEY,
+        course_name VARCHAR(100) NOT NULL,
+        course_code VARCHAR(20) UNIQUE NOT NULL,
+        lecturer_name VARCHAR(100) NOT NULL,
+        class_name VARCHAR(50) NOT NULL,
+        date_of_lecture DATE,
+        scheduled_time TIME,
+        venue VARCHAR(100),
+        created_by INTEGER REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Create program_reports table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS program_reports (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(200) NOT NULL,
+        content TEXT NOT NULL,
+        report_date DATE NOT NULL,
+        submitted_by INTEGER REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Create timetable table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS timetable (
+        id SERIAL PRIMARY KEY,
+        day VARCHAR(20) NOT NULL,
+        course VARCHAR(100) NOT NULL,
+        time_slot VARCHAR(50) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Create ratings table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS ratings (
+        id SERIAL PRIMARY KEY,
+        day_of_week VARCHAR(20) NOT NULL,
+        course_name VARCHAR(100) NOT NULL,
+        rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+        rated_by INTEGER REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    console.log('All tables created successfully');
+    res.json({ message: 'Database tables created successfully' });
+  } catch (error) {
+    console.error('Database setup error:', error);
+    res.status(500).json({ error: 'Database setup failed', details: error.message });
+  }
 });
 
 // ===== USER AUTHENTICATION ENDPOINTS =====
@@ -118,8 +234,15 @@ app.post('/api/logout', async (req, res) => {
   }
 });
 
-// ===== Other endpoints (lecturer reports, courses, ratings, timetable, program reports, dashboard stats, search) =====
-// You can copy them from your original server.js as they are
+// ===== ADD YOUR OTHER ENDPOINTS HERE =====
+// Copy all your existing endpoints from your original server.js:
+// - lecturer reports
+// - courses  
+// - ratings
+// - timetable
+// - program reports
+// - dashboard stats
+// - search endpoints
 
 // ===== Error handling =====
 app.use('*', (req, res) => res.status(404).json({ error: 'Route not found' }));
